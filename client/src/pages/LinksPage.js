@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useEffect, useContext, useCallback, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { AuthContext } from "../context/AuthContext";
 import Loader from "../components/Loader";
 import LinksList from '../components/LinksList';
+import {connect } from 'react-redux';
+import { linksLoaded } from "../redux/actions";
 
-const LinksPage = () => {
-  const [links, setLinks] = useState([]);
+const LinksPage = ({loadLinks}) => {
+  const [links2, setLinks] = useState([]);
+  console.log(links2);
+  
   const { request, loading } = useHttp();
   const auth = useContext(AuthContext);
 
@@ -14,10 +18,10 @@ const LinksPage = () => {
       const fetched = await request(`/api/link/`, "GET", null, {
         Authorization: `Bearer ${auth.token}`,
       });
-      setLinks(fetched);
-      console.log(fetched);
-    } catch (error) {}
-  }, [request, auth.token]);
+     loadLinks(fetched);
+      console.log('fetched',fetched);
+    } catch (error) {console.error(error)}
+  }, [request, auth.token, loadLinks]);
 
   useEffect(() => {
     getLinks();
@@ -25,10 +29,19 @@ const LinksPage = () => {
 
   if (loading) return <Loader />;
   return (
-    <div>
-        <LinksList links={links} />
+    <div style={{padding: "15px"}}> {/* fix! */}
+        <LinksList style={{margin: "15px"}}/>
     </div>
   );
 };
 
-export default LinksPage;
+const mapStateToProps = ({links}) => {
+  return {links}
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    loadLinks: (payload) => dispatch(linksLoaded(payload))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LinksPage);

@@ -1,8 +1,10 @@
 import { useState, useCallback } from "react";
+import { useAuth } from "./auth.hook";
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { logout } = useAuth();
 
   const request = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
@@ -15,6 +17,7 @@ export const useHttp = () => {
          const response =  await fetch(url, {method, body, headers});
          const data = await response.json();
          if(!response.ok) {
+           if(response.status === 401) logout();
              throw new Error(data.message || 'Что-то пошло не так');
          }
 
@@ -27,7 +30,7 @@ export const useHttp = () => {
         console.log(e);
         throw e;
       }
-    }, []
+    }, [logout]
   );
  
   const clearError = useCallback(() => (setError(null)),[]); 

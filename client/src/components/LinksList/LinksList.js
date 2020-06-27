@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
-const LinksList = ({ links }) => {
+const LinksList = ({links}) => {
   if (!links.length) return <p>Ссылок пока нет</p>;
   return (
     <table>
@@ -28,4 +29,8 @@ const LinksList = ({ links }) => {
   );
 };
 
-export default LinksList;
+const mapStateToProps = ({links}) => {
+    return {links}
+}
+
+export default connect(mapStateToProps)(LinksList);
