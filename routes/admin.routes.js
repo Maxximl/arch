@@ -1,28 +1,28 @@
 const { Router } = require("express");
+const Greenhouse = require("../models/Greenhouse");
 const auth = require("../middleware/auth.middleware");
 const router = Router();
 
-router.post("/create", auth, async (req, res) => {
+router.post("/greenhouses/create", auth, async (req, res) => {
   try {
-    const { name, theme, level, date, games, owner } = req.body;
-
-    const existing = await Quiz.findOne({ name });
+    const { name, description, imgData, fileName } = req.body;
+    console.log(req.body);
+    
+    const existing = await Greenhouse.findOne({ name });
 
     if (existing) {
-      return res.json({ link: existing });
+      return res.json({ greenhouse: existing });
     }
 
-    const quiz = new Quiz({
+    const greenhouse = new Greenhouse({
       name,
-      theme,
-      level,
-      date,
-      games,
-      owner: req.user.userId,
+      description,
+      imgData,
+      fileName,
     });
 
-    await quiz.save();
-    res.status(201).json({ quiz });
+    await greenhouse.save();
+    res.status(201).json({ greenhouse });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

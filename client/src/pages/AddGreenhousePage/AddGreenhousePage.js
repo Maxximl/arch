@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../hooks/auth.hook";
 import { useHttp } from "../../hooks/http.hook";
+import {useHistory} from "react-router-dom";
 import "./AddGreenhousePage.css";
 
 const AddGreenhousePage = () => {
@@ -13,6 +14,7 @@ const AddGreenhousePage = () => {
 
   const { request } = useHttp();
   const auth = useAuth();
+  const history = useHistory();
 
   const onChangeHandler = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -36,28 +38,31 @@ const AddGreenhousePage = () => {
   };
   const addHandler = async () => {
     try {
-        const data = await request(
-          "/api/admin/greenhouses/create",
-          "POST",
-          {
-            name: state.quizName,
-            level: state.quizLevel,
-            theme: state.quizTheme,
-          },
-          { Authorization: `Bearer ${auth.token}` }
-        );
-        console.log(data);
-        // history.push(`/detail/${data.link._id}`);
-      } catch (error) {}
+      const data = await request(
+        "/api/admin/greenhouses/create",
+        "POST",
+        {
+          name: state.name,
+          description: state.description,
+          imgData: state.imgData,
+          fileName: state.fileName,
+        },
+        { Authorization: `Bearer ${auth.token}` }
+      );
+      console.log(data);
+      history.push(`/greenhouses`);
+    } catch (error) {}
   };
-  
+
   return (
     <div className="container">
       <h2>Добавить теплицу</h2>
       <div className="input-field">
         <input
+          value={state.name}
           onChange={onChangeHandler}
           id="name"
+          name="name"
           type="text"
           className="validate"
         />
@@ -65,8 +70,10 @@ const AddGreenhousePage = () => {
       </div>
       <div className="input-field">
         <input
+          value={state.description}
           onChange={onChangeHandler}
           id="description"
+          name="description"
           type="text"
           className="validate"
         />
