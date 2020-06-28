@@ -8,6 +8,7 @@ import QuizPage from './pages/QuizPage';
 import QuizCreatePage from './pages/QuizCreatePage';
 import GreenhousesPage from "./pages/GreenhousesPage/GreenhousesPage";
 import TablePage from "./pages/Tables/Tables";
+import AddGreenhousePage from "./pages/AddGreenhousePage";
 
 
 
@@ -32,6 +33,12 @@ export const useRoutes = (authenticated) => {
         </Route> 
         <Route exact path="/greenhouses">
           <GreenhousesPage />
+        </Route>
+        <Route exact path="/admin/greenhouses/create">
+          <GreenhousesPage />
+        </Route>
+        <Route exact path="/admin/greenhouses">
+          <AddGreenhousePage />
         </Route>
         <Route exact path="/tables">
           <TablePage />

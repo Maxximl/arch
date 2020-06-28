@@ -15,8 +15,8 @@ export const Navbar = () => {
     <nav className="nav-extended  teal darken-2">
       <div className="nav-wrapper navigation">
         <a href="/" className="brand-logo">
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-            <i class="material-icons">menu</i>
+          <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+            <i className="material-icons">menu</i>
           </a>
           Агро монитор
         </a>
@@ -43,7 +43,7 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
-      <ul class="sidenav" id="mobile-demo">
+      <ul className="sidenav" id="mobile-demo">
         <li>
           <a href="sass.html">Sass</a>
         </li>
