@@ -6,8 +6,6 @@ const router = Router();
 router.post("/greenhouses/create", auth, async (req, res) => {
   try {
     const { name, description, imgData, fileName } = req.body;
-    console.log(req.body);
-    
     const existing = await Greenhouse.findOne({ name });
 
     if (existing) {
@@ -19,6 +17,7 @@ router.post("/greenhouses/create", auth, async (req, res) => {
       description,
       imgData,
       fileName,
+      owner: req.user.userId
     });
 
     await greenhouse.save();

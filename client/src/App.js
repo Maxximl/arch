@@ -26,7 +26,7 @@ const App = () => {
         <div>
           <Router>
             {isAuthontificated && <Navbar />}
-            {routes}
+            <div className="content">{routes}</div>
           </Router>
         </div>
       </AuthContext.Provider>

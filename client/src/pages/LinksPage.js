@@ -8,6 +8,7 @@ import { linksLoaded } from "../redux/actions";
 
 const LinksPage = ({loadLinks}) => {
   const [links2, setLinks] = useState([]);
+  setLinks([]);
   console.log(links2);
   
   const { request, loading } = useHttp();

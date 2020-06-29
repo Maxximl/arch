@@ -8,10 +8,7 @@ const TablePage = () => {
         console.log(data);
      } catch (error) {
          console.error(error);
-         
      }
-
-    
  }
  wetherApi();
 

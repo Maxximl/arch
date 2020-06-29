@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../hooks/auth.hook";
 import { useHttp } from "../../hooks/http.hook";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./AddGreenhousePage.css";
 
 const AddGreenhousePage = () => {
@@ -36,7 +36,8 @@ const AddGreenhousePage = () => {
 
     reader.readAsDataURL(file);
   };
-  const addHandler = async () => {
+  const addHandler = async (e) => {
+    e.preventDefault();
     try {
       const data = await request(
         "/api/admin/greenhouses/create",
@@ -89,11 +90,15 @@ const AddGreenhousePage = () => {
         </div>
       </div>
       <div className="right">
-        <a onClick={addHandler} className="waves-effect waves-light btn-large">
+        <a
+          href="/"
+          onClick={addHandler}
+          className="waves-effect waves-light btn-large"
+        >
           <i className="material-icons left">add_circle_outline</i>Добавить
         </a>
       </div>
-      <img className="photo-preview" src={state.imgData} />
+      <img alt="avatar" className="photo-preview" src={state.imgData || ""} />
     </div>
   );
 };

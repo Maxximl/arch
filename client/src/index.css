@@ -1,1 +1,4 @@
 /* @import "~materialize-css/dist/css/materialize.min.css"; */
+.content{
+    padding: 20px;
+}

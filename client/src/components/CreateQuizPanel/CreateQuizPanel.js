@@ -20,7 +20,6 @@ const CreateQuizPanel = () => {
           { name: state.quizName, level: state.quizLevel, theme: state.quizTheme },
           { Authorization: `Bearer ${auth.token}` }
         );
-        console.log(data);
        // history.push(`/detail/${data.link._id}`);
       } catch (error) {}
     }

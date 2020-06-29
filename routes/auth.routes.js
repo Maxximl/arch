@@ -78,7 +78,6 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-          console.log("return")
         return res
           .status(400)
           .json({ message: "Неверный пароль, попробуйте снова" });

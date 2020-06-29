@@ -22,6 +22,12 @@ const schema = new Schema({
       ref: "Quiz",
     },
   ],
+  greenhouses: [
+    {
+      type: Types.ObjectId,
+      ref: "Greenhouse"
+    }
+  ]
 });
 
 module.exports = model("User", schema);

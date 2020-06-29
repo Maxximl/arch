@@ -14,12 +14,12 @@ export const Navbar = () => {
   return (
     <nav className="nav-extended  teal darken-2">
       <div className="nav-wrapper navigation">
-        <a href="/" className="brand-logo">
-          <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+        <span href="/" className="brand-logo">
+          <a href="/" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
           Агро монитор
-        </a>
+        </span>
         <ul className="right hide-on-med-and-down">
           <li>
             <NavLink to="/create">Создать</NavLink>
