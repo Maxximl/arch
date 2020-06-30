@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./Navbar.scss";
+import logo from "./img/logo.png";
 
 export const Navbar = () => {
   const history = useHistory();
@@ -14,22 +15,14 @@ export const Navbar = () => {
   return (
     <nav className="nav-extended  teal darken-2">
       <div className="nav-wrapper navigation">
+        <img src={logo} alt="" />
         <span href="/" className="brand-logo">
           <a href="/" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
-          Агро монитор
+          Дриада™
         </span>
         <ul className="right hide-on-med-and-down">
-          <li>
-            <NavLink to="/create">Создать</NavLink>
-          </li>
-          <li>
-            <NavLink to="/links">Ссылки</NavLink>
-          </li>
-          <li>
-            <NavLink to="/quizes">Квизы</NavLink>
-          </li>
           <li>
             <NavLink to="/greenhouses">Теплицы</NavLink>
           </li>

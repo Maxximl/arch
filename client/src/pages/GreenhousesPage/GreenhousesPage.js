@@ -6,13 +6,18 @@ import { AuthContext } from "../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./Greenhouses.css";
+import ModalEdit from "../../components/ModalEdit/ModalEdit";
 
 const GreenhousesPage = () => {
   const [greenhouses, setGreenhouses] = useState([]);
+  const [dummy, reload] = useState(false);
   const { request, loading } = useHttp();
   const auth = useContext(AuthContext);
   const history = useHistory();
 
+  const onReloadHandler = () => {
+    reload(!dummy);
+  }
   const onAddHandler = (e) => {
     e.preventDefault();
     history.push("/admin/greenhouses/create");
@@ -28,7 +33,8 @@ const GreenhousesPage = () => {
     }
   }, [auth.token, request]);
 
-  const onDeleteClick = async (name) => {
+  const onDeleteClick = async (name, e) => {
+    e.preventDefault();
     try {
       await request(
         "/api/greenhouses/",
@@ -75,6 +81,15 @@ const GreenhousesPage = () => {
         {greenhouses.map((greenhouse, idx) => {
           return (
             <div key={greenhouse._id} className="col s3">
+              <ModalEdit
+                onReloadHandler={onReloadHandler}
+                type="edit"
+                id={`modal${idx}`}
+                name={greenhouse.name}
+                description={greenhouse.description}
+                imgData={greenhouse.imgData}
+                fileName={greenhouse.fileName}
+              />
               <div className="card sticky-action">
                 <div className="card-image waves-effect waves-block waves-light">
                   <img
@@ -95,14 +110,15 @@ const GreenhousesPage = () => {
                 <div className="card-action">
                   <div className="center button">
                     <a
-                      onClick={onDeleteClick.bind(null, greenhouse.name)}
-                      className="waves-effect waves-light btn blue darken-3"
+                      className="waves-effect waves-light btn blue darken-3 modal-trigger"
+                      href={`#modal${idx}`}
                     >
                       <i className="material-icons left">edit</i>Изменить
                     </a>
                   </div>
                   <div className="center">
                     <a
+                      href="/"
                       onClick={onDeleteClick.bind(null, greenhouse.name)}
                       className="waves-effect waves-light btn red darken-2"
                     >
@@ -143,6 +159,7 @@ const GreenhousesPage = () => {
                         </tr>
                       </tbody>
                     </table>
+                    <div className="center button"></div>
                   </div>
                 </div>
               </div>
