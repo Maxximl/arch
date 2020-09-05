@@ -4,7 +4,15 @@ import { useHttp } from "../../hooks/http.hook";
 import { useHistory } from "react-router-dom";
 import "./AddGreenhouseForm.css";
 
-const AddGreenhouseForm = ({idx='-1', name='', description='', imgData='', fileName='', type='add', onReloadHandler}) => {
+const AddGreenhouseForm = ({
+  idx = "-1",
+  name = "",
+  description = "",
+  imgData = "",
+  fileName = "",
+  type = "add",
+  onReloadHandler,
+}) => {
   const [state, setState] = useState({
     name,
     description,
@@ -50,17 +58,17 @@ const AddGreenhouseForm = ({idx='-1', name='', description='', imgData='', fileN
         },
         { Authorization: `Bearer ${auth.token}` }
       );
-      console.log(data);
       history.push(`/greenhouses`);
     } catch (error) {}
   };
 
   const editHandler = async (e) => {
     e.preventDefault();
+
     try {
       const data = await request(
-        "/api/admin/greenhouses/edit",
-        "POST",
+        "/api/admin/greenhouses",
+        "PUT",
         {
           name: state.name,
           description: state.description,
@@ -69,8 +77,7 @@ const AddGreenhouseForm = ({idx='-1', name='', description='', imgData='', fileN
         },
         { Authorization: `Bearer ${auth.token}` }
       );
-      console.log(data);
-      onReloadHandler();
+      onReloadHandler(data);
     } catch (error) {}
   };
 
@@ -110,10 +117,11 @@ const AddGreenhouseForm = ({idx='-1', name='', description='', imgData='', fileN
       <div className="right">
         <a
           href="/"
-          onClick={type === 'add' ? addHandler : editHandler}
+          onClick={type === "add" ? addHandler : editHandler}
           className="waves-effect waves-light btn-large"
         >
-          <i className="material-icons left">add_circle_outline</i>{type === 'add' ? "Добавить" : "Изменить"}
+          <i className="material-icons left">add_circle_outline</i>
+          {type === "add" ? "Добавить" : "Изменить"}
         </a>
       </div>
       <img alt="avatar" className="photo-preview" src={state.imgData || ""} />

@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 const { request } = require("express");
 
 const app = express();
+const db = require('./utils/database');
+
+db.execute('SELECT * FROM   greenhouses').then((result) =>{ console.log(result[0]);
+}).catch(err => console.log(err));
+;
 
 // app.use(express.json({ extended: true }));
 app.use(express.json({limit: '50mb', extended: true}));
@@ -14,9 +19,6 @@ app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.use("/api/auth", require("./routes/auth.routes"));
-app.use("/api/link", require("./routes/link.routes"));
-app.use("/t", require("./routes/redirect.routes"));
-app.use("/api/quizes", require("./routes/quiz.routes"));
 app.use("/api/admin", require("./routes/admin.routes"));
 app.use("/api/greenhouses", require("./routes/greenhouses.routes"));
 

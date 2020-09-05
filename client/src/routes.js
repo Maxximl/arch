@@ -1,10 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import LinksPage from "./pages/LinksPage";
-import CreatePage from "./pages/CreatePage";
-import DetailPage from "./pages/DetailPage";
 import AuthPage from "./pages/AuthPage";
-import QuizPage from "./pages/QuizPage";
 import GreenhousesPage from "./pages/GreenhousesPage/GreenhousesPage";
 import TablePage from "./pages/Tables/Tables";
 import AddGreenhousePage from "./pages/AddGreenhousePage";
@@ -13,18 +9,6 @@ export const useRoutes = (authenticated) => {
   if (authenticated) {
     return (
       <Switch>
-        <Route path="/links" exact>
-          <LinksPage />
-        </Route>
-        <Route path="/create" exact>
-          <CreatePage />
-        </Route>
-        <Route path="/detail/:id">
-          <DetailPage />
-        </Route>
-        <Route exact path="/quizes">
-          <QuizPage />
-        </Route>
         <Route exact path="/greenhouses">
           <GreenhousesPage />
         </Route>
@@ -37,7 +21,7 @@ export const useRoutes = (authenticated) => {
         <Route exact path="/tables">
           <TablePage />
         </Route>
-        <Redirect to="/create" />
+        <Redirect to="/greenhouses" />
       </Switch>
     );
   }

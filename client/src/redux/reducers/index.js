@@ -1,22 +1,34 @@
+import {
+  GREENHOUSES_LOADED,
+  GREENHOUSE_DELETE,
+  GREENHOUSES_EDITED,
+} from "../actions/actionTypes";
 
 const initialState = {
-    links: [],
-    quizes: []
-}
+  greenhouses: [],
+  quizes: [],
+};
 const reducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'LINKS_LOADED':
-            return {
-                ...state,
-                links: action.payload
-            }
-        case 'QUIZ_LOADED':
-            return {
-                ...state,
-                quizes: action.payload
-            }
-        default: return state
-    }
-}
+  switch (action.type) {
+    case GREENHOUSES_LOADED:
+      return {
+        ...state,
+        greenhouses: action.payload,
+      };
+    case GREENHOUSE_DELETE:
+      return {
+        ...state,
+        greenhouses: state.greenhouses.filter((gh) => {
+          return gh._id !== action.payload;
+        }),
+      };
+    case GREENHOUSES_EDITED:
+      return {
+        ...state,
+      };
+    default:
+      return state;
+  }
+};
 
 export default reducer;
